@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game of Thrones</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+	<script type="text/javascript">
+		$('document').ready(function() {
+
+
+			$('img').click(function() {
+				var id = $(this).attr('id');
+				console.log(id);
+				$.get("https://anapioficeandfire.com/api/houses/" + $(this).attr('id'), function(res) {
+			    	var html_str = "<h1>House Details</h1><p>Name: ";
+			        html_str += res.name;
+			        html_str += "</p><p>"
+			        html_str += "Words: ";
+                    html_str += res.words; 
+                    html_str += "</p><p>Titles: "
+                    for(var i = 0; i < res.titles.length; i++) {
+                    	if (i == res.titles.length - 1) {
+                    		html_str += res.titles[i]; 
+                    	}
+                    	else {
+         	               html_str += res.titles[i] + ", ";                    		
+                    	}
+                    }
+                    html_str += "</p>";
+			        $('#housedetails').html(html_str);
+				}, "json");
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="top">
+			<img id="378" src="img/targaryen.jpg" alt="targaryen"  width=248 height=140>
+			<img id="362" src="img/stark.jpg" alt="stark" width=248 height=140>
+			<img id="229" src="img/lannister.jpeg" alt="lannister" width=248 height=140>
+			<img id="17" src="img/baratheon.png" alt="baratheon" width=248 height=140>			
+		</div>
+		<div id="housedetails">
+			<h1>House Details</h1>
+		</div>
+	</div>
+</body>
+</html>
